@@ -7,24 +7,33 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import api from '../utils/api';
-import { CurrentUserContext } from './contexts/CurrentUserContext';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import '../index.css';
 
 function App() {
-    // открытие и закрытие попапов
+    //попапы
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+    const [selectedCard, setSelectedCard] = React.useState({});
+
+    //загрузка начальных данных профиля
+    const [currentUser, setCurrentUser] = React.useState({});
+
+    //загрузка начальных карточек
+    const [cards, setCards] = React.useState([]);
+
+    // открытие и закрытие попапов
+    const handleAddPlaceClick = () => {
+        setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
+    };
+
     const handleEditAvatarClick = () => {
         setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     };
 
-    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
     const handleEditProfileClick = () => {
         setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
-    };
-
-    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-    const handleAddPlaceClick = () => {
-        setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
     };
 
     const closeAllPopups = () => {
@@ -33,12 +42,6 @@ function App() {
         setIsEditAvatarPopupOpen(false);
         setSelectedCard({});
     };
-
-    //загрузка начальных данных профиля
-    const [currentUser, setCurrentUser] = React.useState({});
-
-    //загрузка начальных карточек
-    const [cards, setCards] = React.useState([]);
 
     //добавление новых карточек 
     function handleAddPlaceSubmit({ name, link }) {
@@ -81,7 +84,6 @@ function App() {
     }
 
     //попап с увеличенной картинкой карточки
-    const [selectedCard, setSelectedCard] = React.useState({});
     const handleCardClick = (card) => {
         setSelectedCard(card);
     };
@@ -143,24 +145,6 @@ function App() {
                 <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
 
                 <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-
-                <div className="popup popup-card">
-                    <div className="popup__container">
-                        <button className="popup__close hover popup__close-img" type="button"></button>
-                        <img className="popup-card__body" alt="" src="#" />
-                        <h2 className="popup-card__title"></h2>
-                    </div>
-                </div>
-
-                <div className="popup popup-confirmation">
-                    <div className="popup__container">
-                        <button className="popup__close hover popup-confirmation__close" type="button"></button>
-                        <div className="popup__body popup-confirmation__body">
-                            <h2 className="popup__title popup-confirmation__title">Вы уверены?</h2>
-                            <button className="popup__save popup-confirmation__save" type="button">Да</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </CurrentUserContext.Provider>
     );

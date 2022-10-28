@@ -1,6 +1,6 @@
 import React from "react";
 import Card from './Card';
-import { CurrentUserContext } from "./contexts/CurrentUserContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, cards, onCardClick, onCardLike, onCardDelete }) {
     const currentUser = React.useContext(CurrentUserContext);
@@ -20,7 +20,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, cards, onCardClick, onC
                 </button>
             </section>
             <section className="grid">
-                {cards.map((card) => <Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />)}
+                {cards.map((card) => (<Card card={card} key={card._id} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} />))}
             </section>
         </main>
     )

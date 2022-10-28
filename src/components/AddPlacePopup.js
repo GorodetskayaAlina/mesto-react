@@ -22,6 +22,13 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         });
     }
 
+    React.useEffect(() => {
+        if (isOpen) {
+            setName('');
+            setLink('');
+        }
+    }, [isOpen]);
+
     return (
         <PopupWithForm name='refill'
             isOpen={isOpen}
